@@ -230,6 +230,22 @@
 </head>
 <body>
 
+<!--
+  ┌──────────────────────────────────────────────────┐
+  │  You're reading the source. Good instinct.       │
+  │                                                  │
+  │  There are 3 hidden triggers on this page.       │
+  │  One of them: type what you'd type in a          │
+  │  terminal if you really wanted the job.           │
+  │                                                  │
+  │  Hint: what do engineers type before              │
+  │  doing something they probably shouldn't?         │
+  │                                                  │
+  │  Found it? → careers@locus.sh                    │
+  │  Subject: KONAMI | SD3 Backend | [Your Name]     │
+  └──────────────────────────────────────────────────┘
+-->
+
 <div class="scanline"></div>
 <div class="crt-flicker"></div>
 <canvas class="matrix-bg" id="matrix"></canvas>
@@ -461,6 +477,20 @@ addLine('', 200);
 addLine('<span class="accent">  Ready to build the future of logistics?</span>', 300);
 addLine('', 200);
 addLine('<span class="green">▶</span> <span class="white">locus@backend</span><span class="dim">:</span><span class="blue">~/sd3-role</span> <span class="dim">$</span> <span class="bright">open https://locus.sh/careers</span> <span class="cursor"></span>', 500);
+
+// Hint line — flickers in after a delay, subtle enough that only attentive people notice
+setTimeout(() => {
+  const hint = document.createElement('div');
+  hint.className = 'line';
+  hint.innerHTML = '<span style="color:#1a1a2e; transition: color 3s ease;">  # psst... the terminal is listening. try talking to it.</span>';
+  output.appendChild(hint);
+  requestAnimationFrame(() => {
+    hint.classList.add('visible');
+    // Slowly fade the hint in from near-invisible to barely visible
+    setTimeout(() => { hint.querySelector('span').style.color = '#2a2a3e'; }, 500);
+    setTimeout(() => { hint.querySelector('span').style.color = '#333'; }, 4000);
+  });
+}, lineDelay + 3000);
 
 // ═══════════════════════ EASTER EGGS ═══════════════════════
 

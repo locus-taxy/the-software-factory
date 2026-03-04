@@ -165,6 +165,8 @@ Email **careers@locus.sh** with subject line: `SD3 Backend | <your-name>`
 
 There's something hidden in the [live terminal](https://utkarsh497.github.io/locus-for-you/). Engineers who find it skip the queue.
 
+> *Hint: Good engineers read the source. Great engineers talk to the terminal.*
+
 ---
 
 <p align="center">
