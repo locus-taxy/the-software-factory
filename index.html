@@ -1172,16 +1172,23 @@ function captureVisitor(name, email) {
   };
   localStorage.setItem('locus_visitor', JSON.stringify(visitor));
   console.log('[factory.locus.sh] visitor:', visitor);
-  // Send to Google Sheet via Apps Script web app
-  var GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/a/macros/locus.sh/s/AKfycbzJN2q6phCf94qT1fI4-luwJv41KOg0GVOY4s5UB5xYUbuc3jX0t7Ux9yaQO61o6ziV/exec';
+  // Send to Google Sheet via Google Form submission
+  var GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1V0Af0MPcbZL4dqS_uFE06xECxsBT0HGGrWiMksIfLQc/formResponse';
   try {
-    fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+    var formData = new URLSearchParams();
+    formData.append('entry.1928597875', visitor.name);
+    formData.append('entry.471195046', visitor.email);
+    formData.append('entry.897595454', visitor.timestamp);
+    formData.append('entry.1239098761', visitor.userAgent);
+    formData.append('entry.1064667004', visitor.referrer);
+    fetch(GOOGLE_FORM_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(visitor)
-    }).then(function(r) { console.log('[factory] sheet logged:', r.status); })
-      .catch(function() { /* sheet logging failed — that's fine */ });
-  } catch(e) { /* sheet logging failed — that's fine */ }
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    }).then(function() { console.log('[factory] visitor logged to sheet'); })
+      .catch(function() { /* form submit failed — that's fine */ });
+  } catch(e) { /* form submit failed — that's fine */ }
   return visitor;
 }
 
